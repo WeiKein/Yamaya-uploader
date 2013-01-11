@@ -1,0 +1,7 @@
+G:\Project\Encryptor\Encryptor\Encryptor\bin\Release\Encryptor.exe
+G:\Project\Encryptor\Encryptor\Encryptor\bin\Release\Encryptor.pdb
+G:\Project\Encryptor\Encryptor\Encryptor\obj\x86\Release\ResolveAssemblyReference.cache
+G:\Project\Encryptor\Encryptor\Encryptor\obj\x86\Release\Encryptor.Form1.resources
+G:\Project\Encryptor\Encryptor\Encryptor\obj\x86\Release\Encryptor.Properties.Resources.resources
+G:\Project\Encryptor\Encryptor\Encryptor\obj\x86\Release\Encryptor.exe
+G:\Project\Encryptor\Encryptor\Encryptor\obj\x86\Release\Encryptor.pdb

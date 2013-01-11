@@ -1,0 +1,6 @@
+G:\Project\Encryptor\Encryptor\Encryptor\bin\Debug\Encryptor.exe
+G:\Project\Encryptor\Encryptor\Encryptor\bin\Debug\Encryptor.pdb
+G:\Project\Encryptor\Encryptor\Encryptor\obj\x86\Debug\Encryptor.Form1.resources
+G:\Project\Encryptor\Encryptor\Encryptor\obj\x86\Debug\Encryptor.Properties.Resources.resources
+G:\Project\Encryptor\Encryptor\Encryptor\obj\x86\Debug\Encryptor.exe
+G:\Project\Encryptor\Encryptor\Encryptor\obj\x86\Debug\Encryptor.pdb

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="Example CSharp">
+</Property><Property Name="Solution File" Value="C:\Users\wei-kein.ong\Desktop\YamayaV2.1\FileHelpers_2_0_0_bin_docs_wizard\FileHelpers\Examples\Example CSharp\Example CSharp.sln">
+</Property><Property Name="Date" Value="Friday, November 09, 2012">
+</Property><Property Name="Time" Value="17:23:19 PM">
+</Property></Properties><Event ErrorLevel="0" Project="Example CSharp" Source="Example CSharp.csproj" Description="Project file successfully backed up as C:\Users\wei-kein.ong\Desktop\YamayaV2.1\FileHelpers_2_0_0_bin_docs_wizard\FileHelpers\Examples\Example CSharp\Backup\Example CSharp.csproj">
+</Event><Event ErrorLevel="0" Project="Example CSharp" Source="AssemblyInfo.cs" Description="File successfully backed up as C:\Users\wei-kein.ong\Desktop\YamayaV2.1\FileHelpers_2_0_0_bin_docs_wizard\FileHelpers\Examples\Example CSharp\Backup\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="Example CSharp" Source="CustomerDelimited.cs" Description="File successfully backed up as C:\Users\wei-kein.ong\Desktop\YamayaV2.1\FileHelpers_2_0_0_bin_docs_wizard\FileHelpers\Examples\Example CSharp\Backup\CustomerDelimited.cs">
+</Event><Event ErrorLevel="0" Project="Example CSharp" Source="CustomerFixedLength.cs" Description="File successfully backed up as C:\Users\wei-kein.ong\Desktop\YamayaV2.1\FileHelpers_2_0_0_bin_docs_wizard\FileHelpers\Examples\Example CSharp\Backup\CustomerFixedLength.cs">
+</Event><Event ErrorLevel="0" Project="Example CSharp" Source="Main.cs" Description="File successfully backed up as C:\Users\wei-kein.ong\Desktop\YamayaV2.1\FileHelpers_2_0_0_bin_docs_wizard\FileHelpers\Examples\Example CSharp\Backup\Main.cs">
+</Event><Event ErrorLevel="0" Project="Example CSharp" Source="App.ico" Description="File successfully backed up as C:\Users\wei-kein.ong\Desktop\YamayaV2.1\FileHelpers_2_0_0_bin_docs_wizard\FileHelpers\Examples\Example CSharp\Backup\App.ico">
+</Event><Event ErrorLevel="1" Project="Example CSharp" Source="Example CSharp.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="Example CSharp" Source="Example CSharp.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="Example CSharp" Source="Example CSharp.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="Example CSharp" Source="Example CSharp.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

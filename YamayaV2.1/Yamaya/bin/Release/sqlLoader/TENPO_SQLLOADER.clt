@@ -1,0 +1,26 @@
+LOAD DATA 
+CHARACTERSET UTF8 
+INFILE 'SQLLOADER\TENPO_MASSAGED.csv' 
+TRUNCATE
+INTO TABLE DM_STORE 
+FIELDS TERMINATED BY ','
+ 
+TRAILING NULLCOLS 
+(ChainID		CONSTANT '1',
+ChainDescription1	CHAR,
+ChainDescription2	CONSTANT 'Yamaya',
+StoreCode		CHAR,
+StoreDescription1	CHAR,
+StoreDescription3	CHAR,
+PrefectureCode		CHAR,
+PostalCode		CHAR,
+Address1		CHAR,
+Address2		CHAR,
+Telephone		CHAR,
+Fax			CHAR,
+DateOpen		"SAFE_TO_DATE(:DateOpen, 'YYYYMMDD')",
+StoreSize		CHAR,
+StoreFloorSpace		INTEGER EXTERNAL,
+DateUpdated		"SYSDATE",
+StoreDescription2	":StoreDescription3"
+)
