@@ -50,7 +50,7 @@
             this.lblStatusMsg.Name = "lblStatusMsg";
             this.lblStatusMsg.Size = new System.Drawing.Size(160, 13);
             this.lblStatusMsg.TabIndex = 1;
-            this.lblStatusMsg.Text = "Please Wait ! Uplaoding ...";
+            this.lblStatusMsg.Text = "Please Wait ! Uploading ...";
             // 
             // lblStatus
             // 

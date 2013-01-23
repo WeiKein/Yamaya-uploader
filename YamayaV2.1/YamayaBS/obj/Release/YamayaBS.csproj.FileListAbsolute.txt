@@ -33,3 +33,8 @@ C:\Users\wei-kein.ong\Desktop\Project\YamayaV2.1_20121204\YamayaV2.1\YamayaBS\bi
 C:\Users\wei-kein.ong\Desktop\Project\YamayaV2.1_20121204\YamayaV2.1\YamayaBS\obj\Release\Yamaya.ProgessStatus.resources
 C:\Users\wei-kein.ong\Desktop\Project\YamayaV2.1_20121204\YamayaV2.1\YamayaBS\obj\Release\YamayaBS.dll
 C:\Users\wei-kein.ong\Desktop\Project\YamayaV2.1_20121204\YamayaV2.1\YamayaBS\obj\Release\YamayaBS.pdb
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\YamayaBS\bin\Release\YamayaBS.dll
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\YamayaBS\bin\Release\YamayaBS.pdb
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\YamayaBS\obj\Release\Yamaya.ProgessStatus.resources
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\YamayaBS\obj\Release\YamayaBS.dll
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\YamayaBS\obj\Release\YamayaBS.pdb
