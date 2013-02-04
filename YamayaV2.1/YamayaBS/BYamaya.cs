@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Data;
 using System.Data.OracleClient;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
+
+using System.Reflection;
+using System.Resources;
 
 namespace Yamaya
 {
@@ -26,7 +30,22 @@ namespace Yamaya
         private bool item_mapping = false;
         private bool item_des_mapping = false;
         private bool store_mapping    = false;
+
+        private Hashtable htStmt = new Hashtable();
+
         #endregion
+
+        #region Constructor
+        public BYamaya()
+        {
+            loadRes(htStmt);
+        }
+        #endregion
+
+        internal Hashtable STMTS
+        {
+            get { return htStmt; }
+        }
 
         #region Get DataTable Value
 
@@ -37,7 +56,7 @@ namespace Yamaya
 
             try
             {
-                DataTable dt = executeDataTable(iConn, CommandType.Text, YamayaStmt.GET_AREA_DATA, (IDbDataParameter[])null);
+                DataTable dt = executeDataTable(iConn, CommandType.Text, htStmt["GET_AREA_DATA"].ToString(), (IDbDataParameter[])null);
                 dt.TableName = TAB_KEY_AREA;
                 return dt;
             }
@@ -59,7 +78,7 @@ namespace Yamaya
 
             try
             {
-                DataTable dt = executeDataTable(iConn, CommandType.Text, YamayaStmt.GET_CATEGORY_DATA, (IDbDataParameter[])null);
+                DataTable dt = executeDataTable(iConn, CommandType.Text, htStmt["GET_CATEGORY_DATA"].ToString(), (IDbDataParameter[])null);
                 dt.TableName = TAB_KEY_CATEGORY;
                 return dt;
             }
@@ -81,7 +100,7 @@ namespace Yamaya
 
             try
             {
-                DataTable dt = executeDataTable(iConn, CommandType.Text, YamayaStmt.GET_STORE_DATA, (IDbDataParameter[])null);
+                DataTable dt = executeDataTable(iConn, CommandType.Text, htStmt["GET_STORE_DATA"].ToString(), (IDbDataParameter[])null);
                 dt.TableName = TAB_KEY_STORE;
                 return dt;
             }
@@ -102,7 +121,7 @@ namespace Yamaya
 
             try
             {
-                DataTable dt = executeDataTable(iConn, CommandType.Text, YamayaStmt.GET_ITEM_DATA, (IDbDataParameter[])null);
+                DataTable dt = executeDataTable(iConn, CommandType.Text, htStmt["GET_ITEM_DATA"].ToString(), (IDbDataParameter[])null);
                 dt.TableName = TAB_KEY_ITEM;
                 return dt;
             }
@@ -124,7 +143,7 @@ namespace Yamaya
 
             try
             {
-                DataTable dt = executeDataTable(iConn, CommandType.Text, YamayaStmt.GET_ITEMDESC_DATA, (IDbDataParameter[])null);
+                DataTable dt = executeDataTable(iConn, CommandType.Text, htStmt["GET_ITEMDESC_DATA"].ToString(), (IDbDataParameter[])null);
                 dt.TableName = TAB_KEY_ITEM_DESC;
                 return dt;
             }
@@ -252,7 +271,7 @@ namespace Yamaya
 
                 if (dr.RowState == DataRowState.Added)
                 {
-                    stmt = string.Format(YamayaStmt.INS_AREA_DATA, value);
+                    stmt = string.Format(htStmt["INS_AREA_DATA"].ToString(), value);
                     executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                 }
                 else if(dr.RowState == DataRowState.Modified)
@@ -260,17 +279,17 @@ namespace Yamaya
    
                     if (dr["REC_DELETED"] != DBNull.Value && ((Decimal)dr["REC_DELETED"]) == 1)
                     {
-                        stmt = string.Format(YamayaStmt.DEL_AREA_DATA, value);
+                        stmt = string.Format(htStmt["DEL_AREA_DATA"].ToString(), value);
                         executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                     }
                     else
                     {
-                        stmt = string.Format(YamayaStmt.UPD_AREA_DATA, value);
+                        stmt = string.Format(htStmt["UPD_AREA_DATA"].ToString(), value);
                         int i = executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
 
                         if (i == 0)
                         {
-                            stmt = string.Format(YamayaStmt.INS_AREA_DATA, value);
+                            stmt = string.Format(htStmt["INS_AREA_DATA"].ToString(), value);
                             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                         }
                     }
@@ -295,24 +314,24 @@ namespace Yamaya
 
                 if (dr.RowState == DataRowState.Added)
                 {
-                    stmt = string.Format(YamayaStmt.INS_CATEGORY_DATA, value);
+                    stmt = string.Format(htStmt["INS_CATEGORY_DATA"].ToString(), value);
                     executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                 }
                 else if (dr.RowState == DataRowState.Modified)
                 {
                     if (dr["REC_DELETED"] != DBNull.Value && ((Decimal)dr["REC_DELETED"]) == 1)
                     {
-                        stmt = string.Format(YamayaStmt.DEL_CATEGORY_DATA, value);
+                        stmt = string.Format(htStmt["DEL_CATEGORY_DATA"].ToString(), value);
                         executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                     }
                     else
                     {
-                        stmt = string.Format(YamayaStmt.UPD_CATEGROY_DATA, value);
+                        stmt = string.Format(htStmt["UPD_CATEGROY_DATA"].ToString(), value);
                         int i = executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
 
                         if (i == 0)
                         {
-                            stmt = string.Format(YamayaStmt.INS_CATEGORY_DATA, value);
+                            stmt = string.Format(htStmt["INS_CATEGORY_DATA"].ToString(), value);
                             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                         }
                     }
@@ -338,24 +357,24 @@ namespace Yamaya
 
                 if (dr.RowState == DataRowState.Added)
                 {
-                    stmt = string.Format(YamayaStmt.INS_STORE_DATA, value);
+                    stmt = string.Format(htStmt["INS_STORE_DATA"].ToString(), value);
                     executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                 }
                 else if (dr.RowState == DataRowState.Modified)
                 {
                     if (dr["REC_DELETED"] != DBNull.Value && ((Decimal)dr["REC_DELETED"]) == 1)
                     {
-                        stmt = string.Format(YamayaStmt.DEL_STORE_DATA, value);
+                        stmt = string.Format(htStmt["DEL_STORE_DATA"].ToString(), value);
                         executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                     }
                     else
                     {
-                        stmt = string.Format(YamayaStmt.UPD_STORE_DATA, value);
+                        stmt = string.Format(htStmt["UPD_STORE_DATA"].ToString(), value);
                         int i = executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
 
                         if (i == 0)
                         {
-                            stmt = string.Format(YamayaStmt.INS_STORE_DATA, value);
+                            stmt = string.Format(htStmt["INS_STORE_DATA"].ToString(), value);
                             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                         }
                     }
@@ -384,24 +403,24 @@ namespace Yamaya
 
                 if (dr.RowState == DataRowState.Added)
                 {
-                    stmt = string.Format(YamayaStmt.INS_ITEM_DATA, value);
+                    stmt = string.Format(htStmt["INS_ITEM_DATA"].ToString(), value);
                     executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                 }
                 else if (dr.RowState == DataRowState.Modified)
                 {
                     if (dr["REC_DELETED"] != DBNull.Value && ((Decimal)dr["REC_DELETED"]) == 1)
                     {
-                        stmt = string.Format(YamayaStmt.DEL_ITEM_DATA, value);
+                        stmt = string.Format(htStmt["DEL_ITEM_DATA"].ToString(), value);
                         executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                     }
                     else
                     {
-                        stmt = string.Format(YamayaStmt.UPD_ITEM_DATA, value);
+                        stmt = string.Format(htStmt["UPD_ITEM_DATA"].ToString(), value);
                         int i = executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
 
                         if (i == 0)
                         {
-                            stmt = string.Format(YamayaStmt.INS_ITEM_DATA, value);
+                            stmt = string.Format(htStmt["INS_ITEM_DATA"].ToString(), value);
                             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                         }
                     }
@@ -426,24 +445,24 @@ namespace Yamaya
 
                 if (dr.RowState == DataRowState.Added)
                 {
-                    stmt = string.Format(YamayaStmt.INS_ITEMDESC_DATA, value);
+                    stmt = string.Format(htStmt["INS_ITEMDESC_DATA"].ToString(), value);
                     executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                 }
                 else if (dr.RowState == DataRowState.Modified)
                 {
                     if (dr["REC_DELETED"] != DBNull.Value && ((Decimal)dr["REC_DELETED"]) == 1)
                     {
-                        stmt = string.Format(YamayaStmt.DEL_ITEMDESC_DATA, value);
+                        stmt = string.Format(htStmt["DEL_ITEMDESC_DATA"].ToString(), value);
                         executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                     }
                     else
                     {
-                        stmt = string.Format(YamayaStmt.UPD_ITEMDESC_DATA, value);
+                        stmt = string.Format(htStmt["UPD_ITEMDESC_DATA"].ToString(), value);
                         int i = executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
 
                         if (i == 0)
                         {
-                            stmt = string.Format(YamayaStmt.INS_ITEMDESC_DATA, value);
+                            stmt = string.Format(htStmt["INS_ITEMDESC_DATA"].ToString(), value);
                             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                         }
                     }
@@ -583,60 +602,73 @@ namespace Yamaya
 
         public void UpdateAreaMapping(IDbTransaction iTran)
         {            
-            string stmt   = YamayaStmt.UPD_AREA_MAPPING;
+            string stmt   = htStmt["UPD_AREA_MAPPING"].ToString();
             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
         }
 
         public void UpdateStoreMapping(IDbTransaction iTran)
         {            
-            string stmt   = YamayaStmt.UPD_STORE_SIZE_MAPPING;
+            string stmt   = htStmt["UPD_STORE_SIZE_MAPPING"].ToString();
             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
         }
 
         public void UpdateCategoryMapping(IDbTransaction iTran)
         {
-            string stmt = YamayaStmt.UPD_ITEM_CAT_MAPPING1;
+            string stmt = htStmt["UPD_ITEM_CAT_MAPPING1"].ToString();
             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
 
-            stmt = YamayaStmt.UPD_ITEM_CAT_MAPPING2;
+            stmt = htStmt["UPD_ITEM_CAT_MAPPING2"].ToString();
             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
 
-            stmt = YamayaStmt.UPD_ITEM_CAT_MAPPING3;
+            stmt = htStmt["UPD_ITEM_CAT_MAPPING3"].ToString();
             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
 
         }
 
         public void UpdateItemMapping(IDbTransaction iTran)
         {
-            string stmt   = YamayaStmt.UPD_ITEM_MAPPING;
+            string stmt   = htStmt["UPD_ITEM_MAPPING"].ToString();
             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
         }
 
         public void UpdateItemDescMapping(IDbTransaction iTran)
         {
-            string stmt = YamayaStmt.UPD_ITEM_DESC_MAPPING1;
+            string stmt = htStmt["UPD_ITEM_DESC_MAPPING1"].ToString();
             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
 
-            stmt = YamayaStmt.UPD_ITEM_DESC_MAPPING2;
+            stmt = htStmt["UPD_ITEM_DESC_MAPPING2"].ToString();
             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
 
-            stmt = YamayaStmt.UPD_ITEM_DESC_MAPPING3;
+            stmt = htStmt["UPD_ITEM_DESC_MAPPING3"].ToString();
             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
 
-            stmt = YamayaStmt.UPD_ITEM_DESC_MAPPING4;
+            stmt = htStmt["UPD_ITEM_DESC_MAPPING4"].ToString();
             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
 
-            stmt = YamayaStmt.UPD_ITEM_DESC_MAPPING5;
+            stmt = htStmt["UPD_ITEM_DESC_MAPPING5"].ToString();
             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
 
-            stmt = YamayaStmt.UPD_ITEM_DESC_MAPPING6;
+            stmt = htStmt["UPD_ITEM_DESC_MAPPING6"].ToString();
             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
 
-            stmt = YamayaStmt.UPD_ITEM_DESC_MAPPING7;
+            stmt = htStmt["UPD_ITEM_DESC_MAPPING7"].ToString();
             executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
         }
 
         #endregion
+
+        private static void loadRes(Hashtable ht)
+        {
+            string path = Application.StartupPath + "\\stmts.resources";
+            IResourceReader resr     = new ResourceReader(path);            
+            IDictionaryEnumerator en = resr.GetEnumerator();
+
+            while (en.MoveNext())
+            {
+                ht.Add(en.Key, en.Value);
+            }
+            resr.Close();
+        }
         
     }
 }

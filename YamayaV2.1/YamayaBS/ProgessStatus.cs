@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows.Forms;
 using System.ComponentModel;
+using System.Collections;
 
 namespace Yamaya
 {
@@ -19,6 +20,8 @@ namespace Yamaya
 
         IDbConnection iConn = null;
         IDbTransaction iTran = null;
+
+        Hashtable htStmt = new Hashtable();
 
         #endregion
 
@@ -40,27 +43,28 @@ namespace Yamaya
             string stmtUpdate = string.Empty;
             string stmtInsert = string.Empty;
             BYamaya mBYamaya = new BYamaya();
+            htStmt           = mBYamaya.STMTS;
 
             switch (mModule)
             {
                 case BYamaya.TAB_KEY_AREA:
-                    stmtUpdate = YamayaStmt.UPD_AREA_DATA;
-                    stmtInsert = YamayaStmt.INS_AREA_DATA;
+                    stmtUpdate = htStmt["UPD_AREA_DATA"].ToString();
+                    stmtInsert = htStmt["INS_AREA_DATA"].ToString();
                     break;
 
                 case BYamaya.TAB_KEY_CATEGORY:
-                    stmtUpdate = YamayaStmt.UPD_CATEGROY_DATA;
-                    stmtInsert = YamayaStmt.INS_CATEGORY_DATA;
+                    stmtUpdate = htStmt["UPD_CATEGROY_DATA"].ToString();
+                    stmtInsert = htStmt["INS_CATEGORY_DATA"].ToString();
                     break;
 
                 case BYamaya.TAB_KEY_ITEM:
-                    stmtUpdate = YamayaStmt.UPD_ITEM_DATA;
-                    stmtInsert = YamayaStmt.INS_ITEM_DATA;
+                    stmtUpdate = htStmt["UPD_ITEM_DATA"].ToString();
+                    stmtInsert = htStmt["INS_ITEM_DATA"].ToString();
                     break;
 
                 case BYamaya.TAB_KEY_ITEM_DESC:
-                    stmtUpdate = YamayaStmt.UPD_ITEMDESC_DATA;
-                    stmtInsert = YamayaStmt.INS_ITEMDESC_DATA;
+                    stmtUpdate = htStmt["UPD_ITEMDESC_DATA"].ToString();
+                    stmtInsert = htStmt["INS_ITEMDESC_DATA"].ToString();
                     break;
 
             }
