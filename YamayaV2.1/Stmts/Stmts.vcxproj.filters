@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Actual">
+      <UniqueIdentifier>{b4c597f2-9f82-422b-8ab4-ce9578333900}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{27723657-5e8e-4b75-bef3-ffcd8fbc3d2a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="Test\stmts.txt">
+      <Filter>Test</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Actual\stmts.txt">
+      <Filter>Actual</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>
