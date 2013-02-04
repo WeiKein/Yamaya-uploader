@@ -24,3 +24,7 @@ C:\Users\wei-kein.ong\Desktop\Project\YamayaV2.1_20121204\YamayaV2.1\EncryptionU
 C:\Users\wei-kein.ong\Desktop\Project\YamayaV2.1_20121204\YamayaV2.1\EncryptionUtil\bin\Debug\EncryptionUtil.pdb
 C:\Users\wei-kein.ong\Desktop\Project\YamayaV2.1_20121204\YamayaV2.1\EncryptionUtil\obj\Debug\EncryptionUtil.dll
 C:\Users\wei-kein.ong\Desktop\Project\YamayaV2.1_20121204\YamayaV2.1\EncryptionUtil\obj\Debug\EncryptionUtil.pdb
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\EncryptionUtil\bin\Debug\EncryptionUtil.dll
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\EncryptionUtil\bin\Debug\EncryptionUtil.pdb
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\EncryptionUtil\obj\Debug\EncryptionUtil.dll
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\EncryptionUtil\obj\Debug\EncryptionUtil.pdb

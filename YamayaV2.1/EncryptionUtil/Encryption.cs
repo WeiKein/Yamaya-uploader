@@ -17,7 +17,8 @@ namespace EncryptionUtil
             string hashAlgorithm = "SHA1";          // can be "MD5"
             int passwordIterations = 2;             // can be any number
             string initVector = "@1B2c3D4e5F6g7H8"; // must be 16 bytes
-            int keySize = 192;                      // can be 192 or 128
+            int keySize = 192;                      // can be 192 or 128 
+
 
             try
             {
