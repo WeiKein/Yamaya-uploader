@@ -95,3 +95,15 @@ C:\Users\wei-kein.ong\Desktop\Project\YamayaV2.1_20121204\YamayaV2.1\ConnectionS
 C:\Users\wei-kein.ong\Desktop\Project\YamayaV2.1_20121204\YamayaV2.1\ConnectionSetting\DBConnectSetting\obj\x86\Debug\DBConnectSetting.Properties.Resources.resources
 C:\Users\wei-kein.ong\Desktop\Project\YamayaV2.1_20121204\YamayaV2.1\ConnectionSetting\DBConnectSetting\obj\x86\Debug\DBConnectSetting.exe
 C:\Users\wei-kein.ong\Desktop\Project\YamayaV2.1_20121204\YamayaV2.1\ConnectionSetting\DBConnectSetting\obj\x86\Debug\DBConnectSetting.pdb
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\ConnectionSetting\DBConnectSetting\bin\Debug\DBConnectSetting.exe.config
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\ConnectionSetting\DBConnectSetting\bin\Debug\DBConnectSetting.exe
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\ConnectionSetting\DBConnectSetting\bin\Debug\DBConnectSetting.pdb
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\ConnectionSetting\DBConnectSetting\bin\Debug\EncryptionUtil.dll
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\ConnectionSetting\DBConnectSetting\bin\Debug\EncryptionUtil.pdb
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\ConnectionSetting\DBConnectSetting\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\ConnectionSetting\DBConnectSetting\obj\x86\Debug\DBConnectSetting.FChangePassword.resources
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\ConnectionSetting\DBConnectSetting\obj\x86\Debug\DBConnectSetting.FDBConnectSetting.resources
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\ConnectionSetting\DBConnectSetting\obj\x86\Debug\DBConnectSetting.FLogin.resources
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\ConnectionSetting\DBConnectSetting\obj\x86\Debug\DBConnectSetting.Properties.Resources.resources
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\ConnectionSetting\DBConnectSetting\obj\x86\Debug\DBConnectSetting.exe
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\ConnectionSetting\DBConnectSetting\obj\x86\Debug\DBConnectSetting.pdb
