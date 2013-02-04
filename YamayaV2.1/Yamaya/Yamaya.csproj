@@ -81,9 +81,6 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="YamayaBS">
-      <HintPath>..\YamayaBS\bin\Release\YamayaBS.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class\clsDBUtil.cs" />
@@ -161,6 +158,10 @@
     <ProjectReference Include="..\EncryptionUtil\EncryptionUtil.csproj">
       <Project>{0B4BBA45-5A9B-4DF0-9E2E-6B29DDE2EC1E}</Project>
       <Name>EncryptionUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\YamayaBS\YamayaBS.csproj">
+      <Project>{8433119E-3907-4A42-ABB4-2B76A7EF6FB8}</Project>
+      <Name>YamayaBS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
