@@ -17,11 +17,12 @@ namespace Yamaya
     public class BYamaya
     {
         #region Constant
-        public const string TAB_KEY_AREA      = "AREA";
-        public const string TAB_KEY_STORE     = "STORE";
-        public const string TAB_KEY_CATEGORY  = "CATEGORY";
-        public const string TAB_KEY_ITEM      = "ITEM";
-        public const string TAB_KEY_ITEM_DESC = "ITEM_DESC"; 
+        public const string TAB_KEY_AREA          = "AREA";
+        public const string TAB_KEY_STORE         = "STORE";
+        public const string TAB_KEY_CATEGORY      = "CATEGORY";
+        public const string TAB_KEY_ITEM          = "ITEM";
+        public const string TAB_KEY_ITEM_DESC     = "ITEM_DESC";
+        public const string TAB_KEY_STORE_HISTORY = "STORE_HISTORY";
         #endregion
 
         #region Declaration
@@ -42,10 +43,27 @@ namespace Yamaya
         }
         #endregion
 
+        #region Internal
         internal Hashtable STMTS
         {
             get { return htStmt; }
+        } 
+        #endregion
+
+        #region Private
+        private static void loadRes(Hashtable ht)
+        {
+            string path = Application.StartupPath + "\\stmts.resources";
+            IResourceReader resr = new ResourceReader(path);
+            IDictionaryEnumerator en = resr.GetEnumerator();
+
+            while (en.MoveNext())
+            {
+                ht.Add(en.Key, en.Value);
+            }
+            resr.Close();
         }
+        #endregion
 
         #region Get DataTable Value
 
@@ -156,7 +174,29 @@ namespace Yamaya
             {
                 iConn.Close();
             }
-        } 
+        }
+
+        public DataTable getStoreHistoryDT(string DBConnection)
+        {
+            IDbConnection iConn = new OracleConnection(DBConnection);
+            iConn.Open();
+
+            try
+            {
+                DataTable dt = executeDataTable(iConn, CommandType.Text, htStmt["GET_STOREHISTORY_DATA"].ToString(), (IDbDataParameter[])null);
+                dt.TableName = TAB_KEY_STORE_HISTORY;
+                return dt;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                iConn.Close();
+            }
+        }
 
         #endregion
 
@@ -172,6 +212,7 @@ namespace Yamaya
             DataTable dtStore    = null;
             DataTable dtItem     = null;
             DataTable dtItemDesc = null;
+            DataTable dtStoreHis = null;
 
             try
             {
@@ -205,11 +246,16 @@ namespace Yamaya
                     saveItemDescRecords(dtItemDesc, iTran);
                 }
 
+                if (Dic.ContainsKey(TAB_KEY_STORE_HISTORY) == true)
+                {
+                    dtStoreHis = Dic[TAB_KEY_STORE_HISTORY];
+                    saveStoreHistoryRecords(dtStoreHis, iTran);
+                }
+
                 if (dtArea != null)
                 {
                     UpdateAreaMapping(iTran);
                     dtArea.AcceptChanges();
-
                 }
 
                 if (dtStore != null)
@@ -226,16 +272,21 @@ namespace Yamaya
 
                 if (dtItem != null)
                 {
-                    UpdateItemMapping(iTran);
+                    UpdateItemMapping(iTran);                    
                     dtItem.AcceptChanges();
 
                 }
 
-                if (dtItemDesc != null)
+                if (dtItem != null || dtItemDesc != null)
                 {
+                    //UpdateItemDescMapping(iTran);
+                    //dtItemDesc.AcceptChanges();
                     UpdateItemDescMapping(iTran);
-                    dtItemDesc.AcceptChanges();
+
+                    if (dtItemDesc != null)
+                        dtItemDesc.AcceptChanges();
                 }
+
 
                 iTran.Commit();
 
@@ -391,7 +442,7 @@ namespace Yamaya
                 if (dr.RowState == DataRowState.Unchanged)
                     continue;
 
-                string[] value = new string[8];
+                string[] value = new string[9];
                 value[0] = dr[0].ToString();
                 value[1] = dr[1].ToString();
                 value[2] = dr[2].ToString();
@@ -400,6 +451,7 @@ namespace Yamaya
                 value[5] = dr[5].ToString();
                 value[6] = dr[6].ToString();
                 value[7] = dr[7].ToString();
+                value[8] = dr[8].ToString();
 
                 if (dr.RowState == DataRowState.Added)
                 {
@@ -471,6 +523,89 @@ namespace Yamaya
 
             }
         } 
+
+        private void saveStoreHistoryRecords(DataTable dtStoreHistory, IDbTransaction iTran)
+        {
+            string stmt = string.Empty;
+
+            foreach (DataRow dr in dtStoreHistory.Rows)
+            {
+                if (dr.RowState == DataRowState.Unchanged)
+                    continue;
+
+                string[] value = new string[27];
+                value[0] = dr[0].ToString();
+                value[1] = dr[1].ToString();
+                value[2] = dr[2].ToString();
+                value[3] = dr[3].ToString();
+                value[4] = dr[4].ToString();
+                value[5] = dr[5].ToString();
+                value[6] = dr[6].ToString();
+                value[7] = dr[7].ToString();
+                value[8] = dr[8].ToString();
+                value[9] = dr[9].ToString();
+                value[10] = dr[10].ToString();
+                value[11] = dr[11].ToString();
+                value[12] = dr[12].ToString();
+                value[13] = dr[13].ToString();                
+                value[14] = dr[14].ToString();
+
+                int intValue;
+                if (int.TryParse(dr[15].ToString(), out intValue))
+                    value[15] = intValue.ToString();
+                else
+                    value[15] = "NULL";
+                //value[15] = dr[15].ToString();
+
+                value[16] = dr[16].ToString();
+                value[17] = dr[17].ToString();
+                value[18] = dr[18].ToString();
+                value[19] = dr[19].ToString();
+                value[20] = dr[20].ToString();
+                value[21] = dr[21].ToString();
+                value[22] = dr[22].ToString();
+                value[23] = dr[23].ToString();
+                value[24] = dr[24].ToString();
+
+                //05-MAR-13 DateTime Format
+                //value[25] = string.Format("TO_DATE('{0}', 'dd-MMM-YY')", ((DateTime)dr[25]).ToString());
+                //value[26] = string.Format("TO_DATE('{0}', 'dd-MMM-YY')", ((DateTime)dr[26]).ToString());
+                if (!string.IsNullOrEmpty(dr[25].ToString()))
+                    value[25] = string.Format("'{0}'", ((DateTime)dr[25]).ToString("dd-MMM-yy"));
+                else
+                    value[25] = "NULL";
+
+                if (!string.IsNullOrEmpty(dr[26].ToString()))
+                    value[26] = string.Format("'{0}'", ((DateTime)dr[26]).ToString("dd-MMM-yy"));
+                else
+                    value[26] = "NULL";
+
+                if (dr.RowState == DataRowState.Added)
+                {
+                    stmt = string.Format(htStmt["INS_STOREHISTORY_DATA"].ToString(), value);
+                    executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
+                }
+                else if (dr.RowState == DataRowState.Modified)
+                {
+                    if (dr["REC_DELETED"] != DBNull.Value && ((Decimal)dr["REC_DELETED"]) == 1)
+                    {
+                        stmt = string.Format(htStmt["DEL_STOREHISTORY_DATA"].ToString(), value);
+                        executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
+                    }
+                    else
+                    {
+                        stmt = string.Format(htStmt["UPD_STOREHISTORY_DATA"].ToString(), value);
+                        int i = executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
+
+                        if (i == 0)
+                        {
+                            stmt = string.Format(htStmt["INS_STOREHISTORY_DATA"].ToString(), value);
+                            executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
+                        }
+                    }
+                }
+            }
+        }
 
         #endregion
 
@@ -656,19 +791,5 @@ namespace Yamaya
         }
 
         #endregion
-
-        private static void loadRes(Hashtable ht)
-        {
-            string path = Application.StartupPath + "\\stmts.resources";
-            IResourceReader resr     = new ResourceReader(path);            
-            IDictionaryEnumerator en = resr.GetEnumerator();
-
-            while (en.MoveNext())
-            {
-                ht.Add(en.Key, en.Value);
-            }
-            resr.Close();
-        }
-        
     }
 }

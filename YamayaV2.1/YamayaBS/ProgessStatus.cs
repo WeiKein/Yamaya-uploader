@@ -42,8 +42,8 @@ namespace Yamaya
         {
             string stmtUpdate = string.Empty;
             string stmtInsert = string.Empty;
-            BYamaya mBYamaya = new BYamaya();
-            htStmt           = mBYamaya.STMTS;
+            BYamaya mBYamaya  = new BYamaya();
+            htStmt            = mBYamaya.STMTS;
 
             switch (mModule)
             {
@@ -100,10 +100,6 @@ namespace Yamaya
                     if (b == 0)
                     {
                         temp = row[b].ToString();
-                        //if (temp.Length == 1)
-                        //    actual = string.Empty;
-                        //else
-                        //    actual = temp.Substring(1, (temp.Length - 1));
                         if (temp.Length == 0)
                             actual = string.Empty;
                         else
@@ -112,10 +108,6 @@ namespace Yamaya
                     else if (b == (value.Length - 1))
                     {
                         temp = row[b].ToString();
-                        //if (temp.Length == 1)
-                        //    actual = string.Empty;
-                        //else
-                        //    actual = temp.Substring(0, (temp.Length - 1));
                         if (temp.Length == 0)
                             actual = string.Empty;
                         else
@@ -137,7 +129,6 @@ namespace Yamaya
                     mBYamaya.executeNonQuery(iTran, CommandType.Text, stmt, (IDbDataParameter[])null);
                 }
 
-                //System.Threading.Thread.Sleep(100);
                 backgroundWorker1.ReportProgress(a);
             }
 
@@ -153,6 +144,7 @@ namespace Yamaya
 
                 case BYamaya.TAB_KEY_ITEM:
                     mBYamaya.UpdateItemMapping(iTran);
+                    mBYamaya.UpdateItemDescMapping(iTran);
                     break;
 
                 case BYamaya.TAB_KEY_ITEM_DESC:
