@@ -133,9 +133,9 @@ C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\Yamaya\bin\Deb
 C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\Yamaya\bin\Debug\Janus.Windows.UI.v2.xml
 C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\Yamaya\bin\Debug\YamayaBS.pdb
 C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\Yamaya\bin\Debug\office.xml
-C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\Yamaya\obj\x86\Debug\ResolveAssemblyReference.cache
 C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\Yamaya\obj\x86\Debug\Yamaya.FUploadCSV.resources
 C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\Yamaya\obj\x86\Debug\Yamaya.FUploadYamaya.resources
 C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\Yamaya\obj\x86\Debug\Yamaya.FYamaya.resources
 C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\Yamaya\obj\x86\Debug\Yamaya.Properties.Resources.resources
 C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\Yamaya\obj\x86\Debug\Yamaya.exe.licenses
+C:\Users\wei-kein.ong\Documents\GitHub\Yamaya-uploader\YamayaV2.1\Yamaya\obj\x86\Debug\ResolveAssemblyReference.cache
