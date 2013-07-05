@@ -235,7 +235,7 @@ namespace Yamaya
 
             public string SubBrand;
 
-            public string WineType;
+            public string ItemClass;
 
             public string WineColor;
 
@@ -244,6 +244,8 @@ namespace Yamaya
             public string ItemCategory;
 
             public string ItemAuthentiCity;
+
+            public string ItemSubClass;
         }
 
         [DelimitedRecord(",")]

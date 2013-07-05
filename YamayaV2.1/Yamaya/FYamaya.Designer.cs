@@ -35,6 +35,7 @@
             Janus.Windows.GridEX.GridEXLayout gridEXLayout3 = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout gridEXLayout4 = new Janus.Windows.GridEX.GridEXLayout();
             Janus.Windows.GridEX.GridEXLayout gridEXLayout5 = new Janus.Windows.GridEX.GridEXLayout();
+            Janus.Windows.GridEX.GridEXLayout gridEXLayout6 = new Janus.Windows.GridEX.GridEXLayout();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmniExpand = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmniCollapse = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,6 +61,8 @@
             this.gridEXItem = new Janus.Windows.GridEX.GridEX();
             this.tabPageItemDesc = new Janus.Windows.UI.Tab.UITabPage();
             this.gridEXItemDesc = new Janus.Windows.GridEX.GridEX();
+            this.tabPageStoreHistory = new Janus.Windows.UI.Tab.UITabPage();
+            this.gridEXStoreHistory = new Janus.Windows.GridEX.GridEX();
             this.panel1 = new System.Windows.Forms.Panel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.contextMenuStrip1.SuspendLayout();
@@ -79,6 +82,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridEXItem)).BeginInit();
             this.tabPageItemDesc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridEXItemDesc)).BeginInit();
+            this.tabPageStoreHistory.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridEXStoreHistory)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -222,6 +227,7 @@
             this.tabYamaya.Controls.Add(this.tabPageCategory);
             this.tabYamaya.Controls.Add(this.tabPageItem);
             this.tabYamaya.Controls.Add(this.tabPageItemDesc);
+            this.tabYamaya.Controls.Add(this.tabPageStoreHistory);
             this.tabYamaya.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabYamaya.Location = new System.Drawing.Point(0, 0);
             this.tabYamaya.Name = "tabYamaya";
@@ -232,7 +238,8 @@
             this.tabPageStore,
             this.tabPageCategory,
             this.tabPageItem,
-            this.tabPageItemDesc});
+            this.tabPageItemDesc,
+            this.tabPageStoreHistory});
             this.tabYamaya.TabStripOffset = 3;
             this.tabYamaya.VisualStyle = Janus.Windows.UI.Tab.TabVisualStyle.Office2003;
             this.tabYamaya.SelectedTabChanged += new Janus.Windows.UI.Tab.TabEventHandler(this.uiTab1_SelectedTabChanged);
@@ -394,6 +401,37 @@
             this.gridEXItemDesc.UpdatingRecord += new System.ComponentModel.CancelEventHandler(this.gridEXItemDesc_UpdatingRecord);
             this.gridEXItemDesc.AddingRecord += new System.ComponentModel.CancelEventHandler(this.gridEXItemDesc_AddingRecord);
             // 
+            // tabPageStoreHistory
+            // 
+            this.tabPageStoreHistory.Controls.Add(this.gridEXStoreHistory);
+            this.tabPageStoreHistory.Key = "STORE_HISTORY";
+            this.tabPageStoreHistory.Location = new System.Drawing.Point(1, 22);
+            this.tabPageStoreHistory.Name = "tabPageStoreHistory";
+            this.tabPageStoreHistory.Size = new System.Drawing.Size(797, 497);
+            this.tabPageStoreHistory.TabIndex = 5;
+            this.tabPageStoreHistory.Text = "Store History";
+            // 
+            // gridEXStoreHistory
+            // 
+            this.gridEXStoreHistory.AllowAddNew = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.gridEXStoreHistory.AlternatingColors = true;
+            this.gridEXStoreHistory.ContextMenuStrip = this.contextMenuStrip1;
+            gridEXLayout6.LayoutString = resources.GetString("gridEXLayout6.LayoutString");
+            this.gridEXStoreHistory.DesignTimeLayout = gridEXLayout6;
+            this.gridEXStoreHistory.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridEXStoreHistory.EditorsControlStyle.ButtonAppearance = Janus.Windows.GridEX.ButtonAppearance.Regular;
+            this.gridEXStoreHistory.EmptyRows = true;
+            this.gridEXStoreHistory.FilterMode = Janus.Windows.GridEX.FilterMode.Automatic;
+            this.gridEXStoreHistory.Location = new System.Drawing.Point(0, 0);
+            this.gridEXStoreHistory.Name = "gridEXStoreHistory";
+            this.gridEXStoreHistory.RecordNavigator = true;
+            this.gridEXStoreHistory.RowHeaders = Janus.Windows.GridEX.InheritableBoolean.True;
+            this.gridEXStoreHistory.Size = new System.Drawing.Size(797, 497);
+            this.gridEXStoreHistory.TabIndex = 2;
+            this.gridEXStoreHistory.UpdatingCell += new Janus.Windows.GridEX.UpdatingCellEventHandler(this.gridEXStoreHistory_UpdatingCell);
+            this.gridEXStoreHistory.UpdatingRecord += new System.ComponentModel.CancelEventHandler(this.gridEXStoreHistory_UpdatingRecord);
+            this.gridEXStoreHistory.AddingRecord += new System.ComponentModel.CancelEventHandler(this.gridEXStoreHistory_AddingRecord);
+            // 
             // panel1
             // 
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -436,6 +474,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridEXItem)).EndInit();
             this.tabPageItemDesc.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridEXItemDesc)).EndInit();
+            this.tabPageStoreHistory.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridEXStoreHistory)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -470,6 +510,8 @@
         private Janus.Windows.GridEX.GridEX gridEXItemDesc;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton tsbtnUploadYamaya;
+        private Janus.Windows.UI.Tab.UITabPage tabPageStoreHistory;
+        private Janus.Windows.GridEX.GridEX gridEXStoreHistory;
 
 
     }

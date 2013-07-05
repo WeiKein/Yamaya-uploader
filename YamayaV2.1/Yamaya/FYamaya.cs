@@ -21,17 +21,20 @@ namespace Yamaya
     {
         private TextBox txtCustom = new TextBox();
 
-        public const string TAB_KEY_AREA      = "AREA";
-        public const string TAB_KEY_STORE     = "STORE";
-        public const string TAB_KEY_CATEGORY  = "CATEGORY";
-        public const string TAB_KEY_ITEM      = "ITEM";
-        public const string TAB_KEY_ITEM_DESC = "ITEM_DESC";
+        public const string TAB_KEY_AREA          = "AREA";
+        public const string TAB_KEY_STORE         = "STORE";
+        public const string TAB_KEY_CATEGORY      = "CATEGORY";
+        public const string TAB_KEY_ITEM          = "ITEM";
+        public const string TAB_KEY_ITEM_DESC     = "ITEM_DESC";
+        public const string TAB_KEY_STORE_HISTORY = "STORE_HISTORY";
         
         private DataTable dtArea     = null;
         private DataTable dtCategory = null;
         private DataTable dtStore    = null;
         private DataTable dtItem     = null;
         private DataTable dtItemDesc = null;
+        private DataTable dtStoreHis = null;
+
         //private DataSet ds = new DataSet();
 
         private string mConnString = EncryptionUtil.Encryption.Decrypt(ConfigurationManager.AppSettings["DBConn"].ToString());
@@ -142,6 +145,9 @@ namespace Yamaya
             if (dtItemDesc != null && dtItemDesc.GetChanges() != null)
                 dic.Add(TAB_KEY_ITEM_DESC, dtItemDesc);
 
+            if (dtStoreHis != null && dtStoreHis.GetChanges() != null)
+                dic.Add(TAB_KEY_STORE_HISTORY, dtStoreHis);
+
             return dic;
         }
 
@@ -189,6 +195,14 @@ namespace Yamaya
                     }
                     break;
 
+                case TAB_KEY_STORE_HISTORY:
+                    if (gridEXStoreHistory.Focused)
+                    {
+                        if (!gridEXStoreHistory.UpdateData())
+                            return;
+                    }
+                    break;
+
                 default:
                     break;
 
@@ -197,9 +211,9 @@ namespace Yamaya
 
         private void setToolBarButton()
         {
-            tsbtnSave.Enabled = true;
-            tsbtnCancel.Enabled = true;
-            tsbtnUpload.Enabled = false;
+            tsbtnSave.Enabled    = true;
+            tsbtnCancel.Enabled  = true;
+            tsbtnUpload.Enabled  = false;
             tsbtnRefresh.Enabled = false;
         }
 
@@ -232,6 +246,10 @@ namespace Yamaya
 
                         case TAB_KEY_ITEM_DESC:
                             dtItemDesc.Rows.Remove(dr);
+                            break;
+
+                        case TAB_KEY_STORE_HISTORY:
+                            dtStoreHis.Rows.Remove(dr);
                             break;
 
                         default:
@@ -287,6 +305,12 @@ namespace Yamaya
                 {
                     dtItemDesc.AcceptChanges();
                     gridEXItemDesc.Refetch();
+                }
+
+                if (dtStoreHis != null)
+                {
+                    dtStoreHis.AcceptChanges();
+                    gridEXStoreHistory.Refetch();
                 }
 
                 tsbtnSave.Enabled    = false;
@@ -453,7 +477,7 @@ namespace Yamaya
             {
                 if (tsbtnSave.Enabled == false)
                 {
-                    if (e.Page.Key == TAB_KEY_STORE)
+                    if (e.Page.Key == TAB_KEY_STORE || e.Page.Key == TAB_KEY_STORE_HISTORY)
                     {
                         tsbtnUpload.Enabled = false;
                     }
@@ -498,6 +522,13 @@ namespace Yamaya
                         if (dtItemDesc == null || dtItemDesc.GetChanges() == null)
                         {
                             refreshGrid(gridEXItemDesc, dtItemDesc = mBYamaya.getItemDescDT(mConnString));
+                        }
+                        break;
+
+                    case TAB_KEY_STORE_HISTORY:
+                        if (dtStoreHis == null || dtStoreHis.GetChanges() == null)
+                        {
+                            refreshGrid(gridEXStoreHistory, dtStoreHis = mBYamaya.getStoreHistoryDT(mConnString));
                         }
                         break;
 
@@ -546,6 +577,11 @@ namespace Yamaya
                     mColumn = "ITEMCATEGORY";
                     break;
 
+                case TAB_KEY_STORE_HISTORY:
+                    mGridEX = gridEXStoreHistory;
+                    mColumn = "CHAINID";
+                    break;
+
                 default:
                     return;
             }
@@ -587,6 +623,10 @@ namespace Yamaya
                     mGridEX = gridEXItemDesc;
                     break;
 
+                case TAB_KEY_STORE_HISTORY:
+                    mGridEX = gridEXStoreHistory;
+                    break;
+
                 default:
                     return;
             }
@@ -618,6 +658,10 @@ namespace Yamaya
 
                 case TAB_KEY_ITEM_DESC:
                     mGridEX = gridEXItemDesc;
+                    break;
+
+                case TAB_KEY_STORE_HISTORY:
+                    mGridEX = gridEXStoreHistory;
                     break;
 
                 default:
@@ -1075,6 +1119,138 @@ namespace Yamaya
             if (result.Length > 0)
             {
                 MessageBox.Show("Duplicated [Item Brand Category].\r\nPlease try another value.", "Validation", MessageBoxButtons.OK);
+                e.Cancel = true;
+                return;
+            }
+
+        }
+
+        
+        private void gridEXStoreHistory_AddingRecord(object sender, CancelEventArgs e)
+        {
+            GridEXRow row = gridEXStoreHistory.GetRow();
+            if (row.RowType != RowType.NewRecord)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            string value = row.Cells["CHAINID"].Text;
+            if (string.IsNullOrEmpty(value))
+            {
+                MessageBox.Show("Please insert value for [Chain ID]", "Validation", MessageBoxButtons.OK);
+                e.Cancel = true;
+                return;
+            }
+
+            DataRow[] result = dtStoreHis.Select(string.Format("CHAINID = '{0}' AND REC_DELETED = 1", value));
+            if (result.Length > 0)
+            {
+                DataRow dr = result[0];
+                dr["CHAINID"] = row.Cells["CHAINID"].Value;
+                dr["CHAINDESCRIPTION1"] = row.Cells["CHAINDESCRIPTION1"].Value;
+                dr["CHAINDESCRIPTION2"] = row.Cells["CHAINDESCRIPTION2"].Value;
+                dr["STORECODE"] = row.Cells["STORECODE"].Value;
+                dr["STOREDESCRIPTION1"] = row.Cells["STOREDESCRIPTION1"].Value;
+                dr["STOREDESCRIPTION2"] = row.Cells["STOREDESCRIPTION2"].Value;
+                dr["STOREDESCRIPTION3"] = row.Cells["STOREDESCRIPTION3"].Value;
+                dr["POSTALCODE"] = row.Cells["POSTALCODE"].Value;
+                dr["ADDRESS1"] = row.Cells["ADDRESS1"].Value;
+                dr["ADDRESS2"] = row.Cells["ADDRESS2"].Value;
+                dr["TELEPHONE"] = row.Cells["TELEPHONE"].Value;
+                dr["FAX"] = row.Cells["FAX"].Value;
+                dr["STORESIZE"] = row.Cells["STORESIZE"].Value;
+                dr["STORESIZEDESCRIPTION1"] = row.Cells["STORESIZEDESCRIPTION1"].Value;
+                dr["STORESIZEDESCRIPTION2"] = row.Cells["STORESIZEDESCRIPTION2"].Value;
+                dr["STOREFLOORSPACE"] = row.Cells["STOREFLOORSPACE"].Value;
+                dr["PREFECTURECODE"] = row.Cells["PREFECTURECODE"].Value;
+                dr["PREFECTUREDESCRIPTION1"] = row.Cells["PREFECTUREDESCRIPTION1"].Value;
+                dr["PREFECTUREDESCRIPTION2"] = row.Cells["PREFECTUREDESCRIPTION2"].Value;
+                dr["AREADESCRIPTION1"] = row.Cells["AREADESCRIPTION1"].Value;
+                dr["AREADESCRIPTION2"] = row.Cells["AREADESCRIPTION2"].Value;
+                dr["DISTRICTDESCRIPTION1"] = row.Cells["DISTRICTDESCRIPTION1"].Value;
+                dr["DISTRICTDESCRIPTION2"] = row.Cells["DISTRICTDESCRIPTION2"].Value;
+                dr["ANALYSIS1"] = row.Cells["ANALYSIS1"].Value;
+                dr["ANALYSIS2"] = row.Cells["ANALYSIS2"].Value;
+                dr["DATEOPEN"]    = row.Cells["DATEOPEN"].Value;
+                dr["DATEUPDATED"] = row.Cells["DATEUPDATED"].Value;
+                dr["REC_DELETED"] = 0;
+
+                gridEXStoreHistory.CancelCurrentEdit();
+            }
+
+            setToolBarButton();
+        }
+
+        private void gridEXStoreHistory_UpdatingRecord(object sender, CancelEventArgs e)
+        {
+            GridEXRow row = gridEXStoreHistory.GetRow();
+            if (row.RowType != RowType.Record)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            string value = row.Cells["CHAINID"].Text;
+            if (string.IsNullOrEmpty(value))
+            {
+                MessageBox.Show("Please insert value for [Chain ID]", "Validation", MessageBoxButtons.OK);
+                e.Cancel = true;
+                return;
+            }
+
+            DataRow[] result = dtStoreHis.Select(string.Format("CHAINID = '{0}' AND REC_DELETED = 1", value));
+            if (result.Length > 0)
+            {
+                //Update the record to deleted code
+                DataRow dr = result[0];
+                dr["CHAINID"] = row.Cells["CHAINID"].Value;
+                dr["CHAINDESCRIPTION1"] = row.Cells["CHAINDESCRIPTION1"].Value;
+                dr["CHAINDESCRIPTION2"] = row.Cells["CHAINDESCRIPTION2"].Value;
+                dr["STORECODE"] = row.Cells["STORECODE"].Value;
+                dr["STOREDESCRIPTION1"] = row.Cells["STOREDESCRIPTION1"].Value;
+                dr["STOREDESCRIPTION2"] = row.Cells["STOREDESCRIPTION2"].Value;
+                dr["STOREDESCRIPTION3"] = row.Cells["STOREDESCRIPTION3"].Value;
+                dr["POSTALCODE"] = row.Cells["POSTALCODE"].Value;
+                dr["ADDRESS1"] = row.Cells["ADDRESS1"].Value;
+                dr["ADDRESS2"] = row.Cells["ADDRESS2"].Value;
+                dr["TELEPHONE"] = row.Cells["TELEPHONE"].Value;
+                dr["FAX"] = row.Cells["FAX"].Value;
+                dr["STORESIZE"] = row.Cells["STORESIZE"].Value;
+                dr["STORESIZEDESCRIPTION1"] = row.Cells["STORESIZEDESCRIPTION1"].Value;
+                dr["STORESIZEDESCRIPTION2"] = row.Cells["STORESIZEDESCRIPTION2"].Value;
+                dr["STOREFLOORSPACE"] = row.Cells["STOREFLOORSPACE"].Value;
+                dr["PREFECTURECODE"] = row.Cells["PREFECTURECODE"].Value;
+                dr["PREFECTUREDESCRIPTION1"] = row.Cells["PREFECTUREDESCRIPTION1"].Value;
+                dr["PREFECTUREDESCRIPTION2"] = row.Cells["PREFECTUREDESCRIPTION2"].Value;
+                dr["AREADESCRIPTION1"] = row.Cells["AREADESCRIPTION1"].Value;
+                dr["AREADESCRIPTION2"] = row.Cells["AREADESCRIPTION2"].Value;
+                dr["DISTRICTDESCRIPTION1"] = row.Cells["DISTRICTDESCRIPTION1"].Value;
+                dr["DISTRICTDESCRIPTION2"] = row.Cells["DISTRICTDESCRIPTION2"].Value;
+                dr["ANALYSIS1"] = row.Cells["ANALYSIS1"].Value;
+                dr["ANALYSIS2"] = row.Cells["ANALYSIS2"].Value;
+                dr["DATEOPEN"] = row.Cells["DATEOPEN"].Value;
+                dr["DATEUPDATED"] = row.Cells["DATEUPDATED"].Value;
+                dr["REC_DELETED"] = 0;
+                gridEXStoreHistory.CancelCurrentEdit();
+
+                //Mark the current record as deleted.
+                row.Cells["REC_DELETED"].Value = 1;
+            }
+
+            setToolBarButton();
+        }
+
+        private void gridEXStoreHistory_UpdatingCell(object sender, UpdatingCellEventArgs e)
+        {
+            if (e.Column.Key != "CHAINID")
+                return;
+
+            string value = e.Value.ToString();
+            DataRow[] result = dtStoreHis.Select(string.Format("CHAINID = '{0}' AND (REC_DELETED <> 1 OR REC_DELETED IS NULL)", value));
+            if (result.Length > 0)
+            {
+                MessageBox.Show("Duplicated [Chain ID].\r\nPlease try another value.", "Validation", MessageBoxButtons.OK);
                 e.Cancel = true;
                 return;
             }
